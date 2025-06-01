@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Form Validation Example</title>
+  <script>
+    function validateForm() {
+      // Get form values
+      const name = document.forms["myForm"]["name"].value.trim();
+      const email = document.forms["myForm"]["email"].value.trim();
+      const password = document.forms["myForm"]["password"].value;
+
+      // Validate name: not empty and min 3 chars
+      if (name === "") {
+        alert("Name must be filled out.");
+        return false;
+      }
+      if (name.length < 3) {
+        alert("Name must be at least 3 characters long.");
+        return false;
+      }
+
+      // Validate email with regex pattern
+      const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (email === "") {
+        alert("Email must be filled out.");
+        return false;
+      }
+      if (!emailPattern.test(email)) {
+        alert("Please enter a valid email address.");
+        return false;
+      }
+
+      // Validate password: min 8 chars, at least 1 uppercase, 1 lowercase, 1 digit, 1 special char
+      const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*]).{8,}$/;
+      if (password === "") {
+        alert("Password must be filled out.");
+        return false;
+      }
+      if (!passwordPattern.test(password)) {
+        alert("Password must be at least 8 characters and include uppercase, lowercase, number, and special character.");
+        return false;
+      }
+
+      // If all validations pass
+      return true;
+    }
+  </script>
+</head>
+<body>
+
+  <h2>Registration Form</h2>
+  <form name="myForm" onsubmit="return validateForm()" method="post">
+    <label for="name">Name:</label><br>
+    <input type="text" id="name" name="name" autocomplete="off"><br><br>
+
+    <label for="email">Email:</label><br>
+    <input type="text" id="email" name="email" autocomplete="off"><br><br>
+
+    <label for="password">Password:</label><br>
+    <input type="password" id="password" name="password" autocomplete="off"><br><br>
+
+    <input type="submit" value="Submit">
+  </form>
+
+</body>
+</html>
